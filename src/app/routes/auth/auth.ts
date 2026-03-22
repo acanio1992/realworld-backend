@@ -11,18 +11,28 @@ const getTokenFromHeaders = (req: express.Request): string | null => {
   return null;
 };
 
+const jwtOptional = jwt({
+  secret: process.env.JWT_SECRET || 'superSecret',
+  credentialsRequired: false,
+  getToken: getTokenFromHeaders,
+  algorithms: ['HS256'],
+});
+
 const auth = {
   required: jwt({
     secret: process.env.JWT_SECRET || 'superSecret',
     getToken: getTokenFromHeaders,
     algorithms: ['HS256'],
   }),
-  optional: jwt({
-    secret: process.env.JWT_SECRET || 'superSecret',
-    credentialsRequired: false,
-    getToken: getTokenFromHeaders,
-    algorithms: ['HS256'],
-  }),
+  optional: (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    jwtOptional(req, res, (err) => {
+      if (err) {
+        // Invalid token on optional route — proceed without auth instead of 401
+        return next();
+      }
+      next();
+    });
+  },
 };
 
 export default auth;
