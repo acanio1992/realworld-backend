@@ -75,5 +75,26 @@ describe('ProfileUtils', () => {
       // Then
       expect(profileMapper(user, id)).toEqual(expected);
     });
+
+    test('should return following: false when id is undefined', () => {
+      // Given
+      const user = {
+        username: 'RealWorld',
+        bio: 'My happy life',
+        image: null,
+        followedBy: [{ id: 123 }],
+      };
+
+      // When
+      const expected = {
+        username: 'RealWorld',
+        bio: 'My happy life',
+        image: null,
+        following: false,
+      };
+
+      // Then
+      expect(profileMapper(user, undefined)).toEqual(expected);
+    });
   });
 });

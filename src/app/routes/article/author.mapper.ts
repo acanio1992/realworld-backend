@@ -5,7 +5,7 @@ const authorMapper = (author: any, id?: number) => ({
   bio: author.bio,
   image: author.image,
   following: id
-    ? author?.followedBy.some((followingUser: Partial<User>) => followingUser.id === id)
+    ? author.followedBy.some((followingUser: Partial<User>) => followingUser.id === id)
     : false,
 });
 

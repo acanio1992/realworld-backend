@@ -333,7 +333,7 @@ export const updateArticle = async (article: any, slug: string, id: number) => {
   }
 
   const tagList =
-    Array.isArray(article.tagList) && article.tagList?.length
+    Array.isArray(article.tagList) && article.tagList.length
       ? article.tagList.map((tag: string) => ({
           create: { name: tag },
           where: { name: tag },
@@ -489,7 +489,7 @@ export const addComment = async (body: string, slug: string, id: number) => {
       body,
       article: {
         connect: {
-          id: article?.id,
+          id: article.id,
         },
       },
       author: {
@@ -597,9 +597,9 @@ export const favoriteArticle = async (slugPayload: string, id: number) => {
   const result = {
     ...article,
     author: profileMapper(article.author, id),
-    tagList: article?.tagList.map((tag: Tag) => tag.name),
+    tagList: article.tagList.map((tag: Tag) => tag.name),
     favorited: article.favoritedBy.some((favorited: any) => favorited.id === id),
-    favoritesCount: _count?.favoritedBy,
+    favoritesCount: _count.favoritedBy,
   };
 
   return result;
@@ -643,9 +643,9 @@ export const unfavoriteArticle = async (slugPayload: string, id: number) => {
   const result = {
     ...article,
     author: profileMapper(article.author, id),
-    tagList: article?.tagList.map((tag: Tag) => tag.name),
+    tagList: article.tagList.map((tag: Tag) => tag.name),
     favorited: article.favoritedBy.some((favorited: any) => favorited.id === id),
-    favoritesCount: _count?.favoritedBy,
+    favoritesCount: _count.favoritedBy,
   };
 
   return result;
