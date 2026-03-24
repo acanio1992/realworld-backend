@@ -1,0 +1,147 @@
+{
+  "consumer": {
+    "name": "realworld-frontend"
+  },
+  "provider": {
+    "name": "realworld-backend"
+  },
+  "interactions": [
+    {
+      "description": "a request to get popular tags when tags exist",
+      "providerState": "tags exist",
+      "request": {
+        "method": "GET",
+        "path": "/api/tags"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "tags": ["javascript", "react"]
+        },
+        "matchingRules": {
+          "$.body.tags": { "match": "type", "min": 0 },
+          "$.body.tags[*]": { "match": "type" }
+        }
+      }
+    },
+    {
+      "description": "a request to get popular tags when no tags exist",
+      "providerState": "no tags exist",
+      "request": {
+        "method": "GET",
+        "path": "/api/tags"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "tags": []
+        }
+      }
+    },
+    {
+      "description": "a request to register a new user",
+      "providerState": "user does not exist",
+      "request": {
+        "method": "POST",
+        "path": "/api/users",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "user": {
+            "username": "jacinda",
+            "email": "jacinda@example.com",
+            "password": "password123"
+          }
+        }
+      },
+      "response": {
+        "status": 201,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "user": {
+            "email": "jacinda@example.com",
+            "username": "jacinda",
+            "token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7ImlkIjoxfX0.sample"
+          }
+        },
+        "matchingRules": {
+          "$.body.user.token": { "match": "type" },
+          "$.body.user.email": { "match": "type" },
+          "$.body.user.username": { "match": "type" }
+        }
+      }
+    },
+    {
+      "description": "a login request with valid credentials",
+      "providerState": "user jacinda exists",
+      "request": {
+        "method": "POST",
+        "path": "/api/users/login",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "user": {
+            "email": "jacinda@example.com",
+            "password": "password123"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "user": {
+            "email": "jacinda@example.com",
+            "username": "jacinda",
+            "token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjp7ImlkIjoxfX0.sample"
+          }
+        },
+        "matchingRules": {
+          "$.body.user.token": { "match": "type" },
+          "$.body.user.email": { "match": "type" },
+          "$.body.user.username": { "match": "type" }
+        }
+      }
+    },
+    {
+      "description": "a login request with invalid credentials",
+      "providerState": "user exists with different password",
+      "request": {
+        "method": "POST",
+        "path": "/api/users/login",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "user": {
+            "email": "jacinda@example.com",
+            "password": "wrong-password"
+          }
+        }
+      },
+      "response": {
+        "status": 403,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}

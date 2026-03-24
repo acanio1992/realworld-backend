@@ -33,6 +33,7 @@
     "@nx/js": "17.2.6",
     "@nx/node": "17.2.6",
     "@nx/workspace": "17.2.6",
+    "@pact-foundation/pact": "^16.3.0",
     "@stryker-mutator/core": "^9.6.0",
     "@stryker-mutator/jest-runner": "^9.6.0",
     "@stryker-mutator/typescript-checker": "^9.6.0",
