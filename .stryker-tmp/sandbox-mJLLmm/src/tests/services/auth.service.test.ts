@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as bcrypt from 'bcryptjs';
 import { mockDeep, mockReset, DeepMockProxy } from 'jest-mock-extended';
 import { PrismaClient } from '@prisma/client';
@@ -38,9 +39,9 @@ describe('AuthService', () => {
       };
 
       // When
-      // @ts-ignore - mock findUnique to return null so uniqueness check passes
+      //  - mock findUnique to return null so uniqueness check passes
       prismaMock.user.findUnique.mockResolvedValue(null);
-      // @ts-ignore
+      // 
       prismaMock.user.create.mockResolvedValue(mockedResponse);
 
       // Then
@@ -137,9 +138,9 @@ describe('AuthService', () => {
       };
 
       // When: first findUnique (by email) returns user, second (by username) returns null
-      // @ts-ignore
+      // 
       prismaMock.user.findUnique.mockResolvedValueOnce(mockedExistingUserByEmail);
-      // @ts-ignore
+      // 
       prismaMock.user.findUnique.mockResolvedValueOnce(null);
 
       // Then
@@ -170,9 +171,9 @@ describe('AuthService', () => {
       };
 
       // When: first findUnique (by email) returns null, second (by username) returns user
-      // @ts-ignore
+      // 
       prismaMock.user.findUnique.mockResolvedValueOnce(null);
-      // @ts-ignore
+      // 
       prismaMock.user.findUnique.mockResolvedValueOnce(mockedExistingUserByUsername);
 
       // Then
@@ -202,9 +203,9 @@ describe('AuthService', () => {
       };
 
       // When
-      // @ts-ignore
+      // 
       prismaMock.user.findUnique.mockResolvedValue(null);
-      // @ts-ignore
+      // 
       prismaMock.user.create.mockResolvedValue(mockedResponse);
 
       // Then
@@ -231,9 +232,9 @@ describe('AuthService', () => {
         image: null,
       };
 
-      // @ts-ignore
+      // 
       prismaMock.user.findUnique.mockResolvedValue(null);
-      // @ts-ignore
+      // 
       prismaMock.user.create.mockResolvedValue(mockedResponse);
 
       const result = await createUser(user);
@@ -435,7 +436,7 @@ describe('AuthService', () => {
         image: 'http://example.com/avatar.png',
       };
 
-      // @ts-ignore
+      // 
       prismaMock.user.update.mockResolvedValue(mockedResponse);
 
       const result = await updateUser(userPayload, 123);
@@ -458,7 +459,7 @@ describe('AuthService', () => {
         image: null,
       };
 
-      // @ts-ignore
+      // 
       prismaMock.user.update.mockResolvedValue(mockedResponse);
 
       const result = await updateUser(userPayload, 123);
@@ -481,7 +482,7 @@ describe('AuthService', () => {
       };
 
       // When
-      // @ts-ignore
+      // 
       prismaMock.user.update.mockResolvedValue(mockedResponse);
 
       const bcryptSpy = jest.spyOn(require('bcryptjs'), 'hash');

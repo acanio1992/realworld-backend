@@ -1,3 +1,4 @@
+// @ts-nocheck
 import prismaMock from '../prisma-mock';
 import { followUser, getProfile, unfollowUser } from '../../app/routes/profile/profile.service';
 
@@ -21,7 +22,7 @@ describe('ProfileService', () => {
       };
 
       // When
-      // @ts-ignore
+      // 
       prismaMock.user.findUnique.mockResolvedValue(mockedResponse);
 
       // Then

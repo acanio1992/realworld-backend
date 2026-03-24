@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { mockDeep, mockReset, DeepMockProxy } from 'jest-mock-extended';
 import { PrismaClient } from '@prisma/client';
 import prisma from '../../prisma/prisma-client';
@@ -21,7 +22,7 @@ describe('TagService', () => {
       const mockedResponse = [{ name: 'dragons' }, { name: 'training' }, { name: 'react' }];
 
       // When
-      // @ts-ignore
+      // 
       prismaMock.tag.findMany.mockResolvedValue(mockedResponse);
 
       // Then
@@ -35,7 +36,7 @@ describe('TagService', () => {
       const mockedResponse = [{ name: 'dragons' }, { name: 'mytag' }];
 
       // When
-      // @ts-ignore
+      // 
       prismaMock.tag.findMany.mockResolvedValue(mockedResponse);
 
       // Then
@@ -46,7 +47,7 @@ describe('TagService', () => {
 
     test('should return an empty array if no tags exist', async () => {
       // When
-      // @ts-ignore
+      // 
       prismaMock.tag.findMany.mockResolvedValue([]);
 
       // Then
